@@ -12,7 +12,6 @@
     "url": "https://github.com/jishi/node-sonos-http-api.git"
   },
   "dependencies": {
-    "anesidora": "^1.2.0",
     "basic-auth": "~1.1.0",
     "elevenlabs-node": "2.0.1",
     "fuse.js": "^6.4.1",

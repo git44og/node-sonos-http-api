@@ -352,10 +352,6 @@ Example:
 	    "password": "password"
 	  },
 	  "announceVolume": 40,
-	  "pandora": {
-	    "username": "your-pandora-account-email-address",
-	    "password": "your-pandora-password"
-	  },
 	  "spotify": {
 	    "clientId": "your-spotify-application-clientId",
 	    "clientSecret": "your-spotify-application-clientSecret"
@@ -400,7 +396,6 @@ Experimental support for TTS. Today the following providers are available:
 
 * voicerss
 * Microsoft Cognitive Services (Bing Text to Speech API)
-* AWS Polly
 * Google (default)
 * macOS say command
 * Elevenlabs
@@ -513,103 +508,6 @@ Supported voices are:
 
 See https://www.microsoft.com/cognitive-services/en-us/speech-api/documentation/API-Reference-REST/BingVoiceOutput#SupLocales to identify
 which language and gender it maps against. If your desired voice is not in the list of supported one, raise an issue about adding it or send me a PR.
-
-#### AWS Polly
-
-Requires AWS access tokens, which you generate for your user. Since this uses the AWS SDK, it will look for settings in either Environment variables, the ~/.aws/credentials or ~/.aws/config.
-
-You can also specify it for this application only, using:
-```json
-	{
-	  "aws": {
-	    "credentials": {
-	      "region": "eu-west-1",
-	      "accessKeyId": "Your access key id",
-	      "secretAccessKey": "Your secret"
-	    },
-	    "name": "Joanna"
-	  }
-	}
-```
-
-To select the neural engine, append `Neural` to the name, e.g. `DanielNeural`.
-
-Choose the region where you registered your account, or the one closest to you.
-
-If you have your credentials elsewhere and want to stick with the default voice, you still need to make sure that the aws config option is set to trigger AWS TTS:
-
-```json
-	{
-	  "aws": {}
-	}
-```
-
-Action is:
-
-	/[Room name]/say/[phrase][/[name]][/[announce volume]]
-	/sayall/[phrase][/[name]][/[announce volume]]
-
-Example:
-
-	/Office/say/Hello, dinner is ready
-	/Office/say/Hello, dinner is ready/Nicole
-	/Office/say/Hej, maten är klar/Astrid
-	/sayall/Hello, dinner is ready
-	/Office/say/Hello, dinner is ready/90
-	/Office/say/Hej, maten är klar/Astrid/90
-
-This is the current list of voice names and their corresponding language and accent (as of Dec 2016).
-To get a current list of voices, you would need to use the AWS CLI and invoke the describe-voices command.
-
-| Language | Code | Gender | Name |
-| --------- | ---- | ------ | ---- |
-| Australian English | en-AU | Female | Nicole |
-| Australian English | en-AU | Male | Russell |
-| Brazilian Portuguese | pt-BR | Female | Vitoria |
-| Brazilian Portuguese | pt-BR | Male | Ricardo |
-| British English | en-GB | Male | Brian |
-| British English | en-GB | Female | Emma |
-| British English | en-GB | Female | Amy |
-| Canadian French | fr-CA | Female | Chantal |
-| Castilian Spanish | es-ES | Female | Conchita |
-| Castilian Spanish | es-ES | Male | Enrique |
-| Danish | da-DK | Female | Naja |
-| Danish | da-DK | Male | Mads |
-| Dutch | nl-NL | Male | Ruben |
-| Dutch | nl-NL | Female | Lotte |
-| French | fr-FR | Male | Mathieu |
-| French | fr-FR | Female | Celine |
-| German | de-DE | Female | Marlene |
-| German | de-DE | Male | Hans |
-| Icelandic | is-IS | Male | Karl |
-| Icelandic | is-IS | Female | Dora |
-| Indian English | en-IN | Female | Raveena |
-| Italian | it-IT | Female | Carla |
-| Italian | it-IT | Male | Giorgio |
-| Japanese | ja-JP | Female | Mizuki |
-| Norwegian | nb-NO | Female | Liv |
-| Polish | pl-PL | Female | Maja |
-| Polish | pl-PL | Male | Jacek |
-| Polish | pl-PL | Male | Jan |
-| Polish | pl-PL | Female | Ewa |
-| Portuguese | pt-PT | Female | Ines |
-| Portuguese | pt-PT | Male | Cristiano |
-| Romanian | ro-RO | Female | Carmen |
-| Russian | ru-RU | Female | Tatyana |
-| Russian | ru-RU | Male | Maxim |
-| Swedish | sv-SE | Female | Astrid |
-| Turkish | tr-TR | Female | Filiz |
-| US English | en-US | Male | Justin |
-| US English | en-US | Female | Joanna |
-| US English | en-US | Male | Joey |
-| US English | en-US | Female | Ivy |
-| US English | en-US | Female | Salli |
-| US English | en-US | Female | Kendra |
-| US English | en-US | Female | Kimberly |
-| US Spanish | es-US | Female | Penelope |
-| US Spanish | es-US | Male | Miguel |
-| Welsh | cy-GB | Female | Gwyneth |
-| Welsh English | en-GB-WLS | Male | Geraint |
 
 #### Elevenlabs
 
@@ -995,28 +893,6 @@ You can specify a SiriusXM channel number or station name and the station will b
 ```
 /RoomName/siriusXM/{channel number,station name}
 ```
-
-
-Pandora
-----------------------
-Perform a search for one of your Pandora stations and begin playing. Give the currently playing song a thumbs up or thumbs down. Requires a valid Pandora account and credentials.
-
-The following endpoints are available:
-
-```
-/RoomName/pandora/play/{station name}     Plays the closest match to the specified station name in your list of Pandora stations
-/RoomName/pandora/thumbsup                Gives the current playing Pandora song a thumbs up
-/RoomName/pandora/thumbsdown              Gives the current playing Pandora song a thumbs down
-```
-
-Your Pandora credentials need to be added to the settings.json file
-   ```
-          ,
-          "pandora": {
-            "username": "your-pandora-account-email-address",
-            "password": "your-pandora-password"
-          }
-  ```
 
 
 Tunein
